@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Портфолио | TOO АЭС{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/portfolio.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="pf pf--index">
+  <div class="container">
+
+    <header class="pf__head pf__head--center">
+      <h1 class="pf__title">Портфолио</h1>
+      <p class="pf__subtitle muted">
+        Разделы по направлениям работ: кейсы, проекты, экспертизы и сопровождение.
+      </p>
+    </header>
+
+    {% if pages %}
+      <div class="pf-pages">
+        {% for p in pages %}
+          <article class="pf-page">
+            <a class="pf-page__link" href="{% url 'portfolio:page' p.slug %}">
+              <div class="pf-page__body">
+                <h2 class="pf-page__title">{{ p.title }}</h2>
+
+                {% if p.description %}
+                  <p class="pf-page__text">{{ p.description }}</p>
+                {% else %}
+                  <p class="pf-page__text muted">Открыть подборку кейсов и материалов по направлению.</p>
+                {% endif %}
+
+                <div class="pf-page__more">Смотреть →</div>
+              </div>
+            </a>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="pf-empty">
+        <h2 class="pf-empty__title">Пока пусто</h2>
+        <p class="pf-empty__text muted">Опубликованных разделов портфолио ещё нет.</p>
+      </div>
+    {% endif %}
+
+  </div>
+</section>
+{% endblock %}

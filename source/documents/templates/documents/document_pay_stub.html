@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/documents.css' %}">
+{% endblock %}
+
+{% block title %}Оплата | {{ doc.title }}{% endblock %}
+
+{% block content %}
+<section class="doc-detail">
+  <div class="container">
+
+    <div class="crumbs">
+      <a class="crumbs__link" href="{% url 'documents:detail' doc.slug %}">← Назад к документу</a>
+    </div>
+
+    <header class="doc-detail__head">
+      <div class="doc-detail__titles">
+        <h1 class="doc-detail__title">Оплата</h1>
+        <p class="doc-detail__subtitle">{{ message }}</p>
+      </div>
+    </header>
+
+    <div class="doc-actions__card" style="max-width:720px;">
+      <p class="muted" style="margin:0 0 12px;">
+        Тут позже будет: создание заказа, платёжный провайдер, вебхук, смена статуса покупки на PAID.
+      </p>
+
+      <a class="btn btn--ghost" href="{% url 'documents:detail' doc.slug %}">Вернуться</a>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

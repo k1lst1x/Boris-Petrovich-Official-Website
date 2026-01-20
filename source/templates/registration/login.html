@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Вход{% endblock %}
+
+{% block content %}
+<section class="auth">
+  <div class="container">
+
+    <div class="auth-card">
+      <h1 class="auth-title">Вход</h1>
+      <p class="auth-subtitle muted">Войдите, чтобы скачивать платные документы после оплаты.</p>
+
+      {% if form.errors %}
+        <div class="auth-alert">Неверный логин или пароль.</div>
+      {% endif %}
+
+      <form method="post" class="auth-form">
+        {% csrf_token %}
+
+        <label class="auth-label">Логин</label>
+        {{ form.username }}
+
+        <label class="auth-label">Пароль</label>
+        {{ form.password }}
+
+        <button class="btn btn--orange btn--block" type="submit">Войти</button>
+
+        {% if next %}
+          <input type="hidden" name="next" value="{{ next }}">
+        {% endif %}
+      </form>
+
+      <div class="auth-links">
+        <a href="{% url 'password_reset' %}">Забыли пароль?</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

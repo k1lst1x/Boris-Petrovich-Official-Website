@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/documents.css' %}">
+{% endblock %}
+
+{% block title %}Документы | TOO АЭС{% endblock %}
+
+{% block content %}
+<section class="docs-page">
+  <div class="container">
+
+    <div class="docs-page__head">
+      <h1 class="docs-page__title">Документы</h1>
+      <p class="docs-page__subtitle">
+        Материалы, отчёты и методические документы. Бесплатные доступны сразу, платные после оплаты.
+      </p>
+    </div>
+
+    {% if categories %}
+      <div class="docs-filters">
+        <a class="docs-filter {% if not current_category %}is-active{% endif %}"
+           href="{% url 'documents:list' %}">Все</a>
+
+        {% for c in categories %}
+          <a class="docs-filter {% if current_category and current_category.slug == c.slug %}is-active{% endif %}"
+             href="{% url 'documents:category' c.slug %}">
+            {{ c.title }}
+          </a>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <div class="docs-grid">
+      {% for d in docs %}
+        <article class="doc-card">
+
+          <div class="doc-card__media">
+            {% if d.preview_image %}
+              <img class="doc-card__img" src="{{ d.preview_image.url }}" alt="{{ d.title }}">
+            {% else %}
+              <div class="doc-card__placeholder"><span>DOC</span></div>
+            {% endif %}
+
+            <div class="doc-card__badges">
+              {% if d.access_type == 'paid' %}
+                <span class="badge badge--paid">Платно</span>
+              {% else %}
+                <span class="badge badge--free">Бесплатно</span>
+              {% endif %}
+
+              {% if not d.is_open %}
+                <span class="badge badge--closed">Закрыто</span>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="doc-card__body">
+            <h3 class="doc-card__title">{{ d.title }}</h3>
+            <p class="doc-card__text">{{ d.description|default:"Краткое описание"|truncatechars:110 }}</p>
+
+            <div class="doc-card__meta">
+              <span class="doc-card__cat">{% if d.category %}{{ d.category.title }}{% else %}—{% endif %}</span>
+              {% if d.access_type == 'paid' and d.price %}
+                <span class="doc-card__price">{{ d.price }} {{ d.currency }}</span>
+              {% endif %}
+            </div>
+
+            <div class="doc-card__actions">
+              <a class="btn btn--ghost" href="{% url 'documents:detail' d.slug %}">Открыть</a>
+
+              {% if d.is_open %}
+                {% if d.user_can_access %}
+                  <a class="btn btn--primary" href="{% url 'documents:download' d.slug %}">Скачать</a>
+                {% else %}
+                  {% if d.access_type == 'paid' %}
+                    {% if d.user_needs_login %}
+                      <a class="btn btn--primary" href="{% url 'login' %}">Войти</a>
+                    {% else %}
+                      <a class="btn btn--primary" href="{% url 'documents:pay' d.slug %}">Оплатить</a>
+                    {% endif %}
+                  {% endif %}
+                {% endif %}
+              {% endif %}
+            </div>
+          </div>
+
+        </article>
+      {% empty %}
+        <div class="docs-empty">
+          <h3 class="docs-empty__title">Пока нет документов</h3>
+          <p class="docs-empty__text">Добавь документы в админке.</p>
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+{% endblock %}

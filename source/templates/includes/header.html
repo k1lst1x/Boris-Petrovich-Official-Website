@@ -1,0 +1,17 @@
+<header class="header">
+  <div class="container header__inner">
+    <a class="logo" href="/" aria-label="На главную">TOO АЭС</a>
+
+    <nav class="nav" aria-label="Основная навигация">
+      <a class="nav__link" href="/portfolio/">Портфолио</a>
+      <a class="nav__link" href="/news/">Новости</a>
+      <a class="nav__link" href="/documents/">Документы</a>
+
+    </nav>
+
+    <div class="auth" aria-label="Аккаунт">
+        <a href="{% url 'login' %}">Войти</a>
+      <a href="{% url 'signup' %}">Регистрация</a>
+    </div>
+  </div>
+</header>

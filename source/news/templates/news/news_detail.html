@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ post.title }} | Новости | TOO АЭС{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/news.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="news-detail">
+  <div class="container">
+    <nav class="breadcrumbs" aria-label="Навигация">
+      <a class="breadcrumbs__link" href="/">Главная</a>
+      <span class="breadcrumbs__sep">/</span>
+      <a class="breadcrumbs__link" href="{% url 'news:list' %}">Новости</a>
+      <span class="breadcrumbs__sep">/</span>
+      <span class="breadcrumbs__current">{{ post.title }}</span>
+    </nav>
+
+    <header class="news-detail__head">
+      <h1 class="news-detail__title">{{ post.title }}</h1>
+
+      <div class="news-detail__meta">
+        {% if post.published_at %}
+          <time class="news-detail__date" datetime="{{ post.published_at|date:'c' }}">
+            {{ post.published_at|date:"d.m.Y" }}
+          </time>
+        {% endif %}
+
+        {% if post.category %}
+          <a class="news-detail__cat" href="{% url 'news:category' post.category.slug %}">
+            {{ post.category.title }}
+          </a>
+        {% endif %}
+      </div>
+    </header>
+
+    {% if post.cover_image %}
+      <div class="news-detail__cover">
+        <img src="{{ post.cover_image.url }}" alt="{{ post.title }}">
+      </div>
+    {% endif %}
+
+    <article class="news-detail__content">
+      {% if post.preview_text %}
+        <p class="news-detail__lead">{{ post.preview_text }}</p>
+      {% endif %}
+
+      <div class="news-detail__body">
+        {{ post.body|linebreaks }}
+      </div>
+    </article>
+
+    <div class="news-detail__actions">
+      <a class="btn btn--outline" href="{% url 'news:list' %}">← К списку</a>
+      <button class="btn btn--orange" data-modal-open="contact">Задать вопрос</button>
+    </div>
+  </div>
+</section>
+{% endblock %}

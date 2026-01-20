@@ -1,0 +1,759 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Главная | TOO АЭС{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero__bg" style="background-image:url('{% static 'img/hero.jpg' %}')"></div>
+  <div class="hero__overlay"></div>
+
+  <div class="container hero__inner">
+    <div class="hero__content">
+
+      <h1 class="hero__title">
+        Аудит, экспертиза и сервис для энергетики и промышленности
+      </h1>
+
+      <p class="hero__text">
+        Технический, энергетический и экологический аудит, экспертиза и сопровождение проектов.
+        Проектирование, изготовление и монтаж оборудования для повышения надёжности и эффективности.
+      </p>
+
+      <div class="hero__actions">
+        <button class="btn btn--orange hero__btn" data-modal-open="contact">Получить консультацию</button>
+        <a class="btn btn--orange hero__btn" href="#cases">Посмотреть кейсы</a>
+      </div>
+
+      <!-- trust signals -->
+      <ul class="hero__trust" aria-label="Ключевые преимущества">
+        <li class="trust-pill">
+          <span class="trust-pill__k">20+ лет</span>
+          <span class="trust-pill__v">практики</span>
+        </li>
+        <li class="trust-pill">
+          <span class="trust-pill__k">Аккредитация</span>
+          <span class="trust-pill__v">экспертов</span>
+        </li>
+        <li class="trust-pill">
+          <span class="trust-pill__k">РК и СНГ</span>
+          <span class="trust-pill__v">география</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats" aria-label="Ключевые показатели">
+  <div class="container stats__grid">
+    <div class="stat">
+      <div class="stat__num">1372</div>
+      <div class="stat__label">обследованных домов</div>
+      <div class="stat__hint">По областям РК, технические и энергообследования</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat__num">7 областей</div>
+      <div class="stat__label">регионов работ</div>
+      <div class="stat__hint">Выезды, обследования и сопровождение</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat__num">10+</div>
+      <div class="stat__label">крупных объектов</div>
+      <div class="stat__hint">Энергетика, транспорт, промышленность</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat__num">3 млрд ₸</div>
+      <div class="stat__label">экономический эффект</div>
+      <div class="stat__hint">От внедрённых решений и мероприятий</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT (modern split instead of one centered paragraph) -->
+<section class="about-section" id="about">
+  <div class="about-section__bg"></div>
+  <div class="container about-section__inner">
+    <div class="about__grid">
+      <div class="about__left">
+        <h2 class="section__title section__title--left">О компании</h2>
+        <p class="about__lead">
+          АЭС — научно-инженерная экспертная организация: аудит, экспертиза и техническое консультирование
+          объектов энергетики и промышленности.
+        </p>
+      </div>
+
+      <div class="about__right">
+        <ul class="about__facts">
+          <li class="about__fact">
+            <span class="about__factTitle">С чем работаем</span>
+            <span class="about__factText">ТЭЦ, котельные, промпредприятия, энергоснабжение, инфраструктура</span>
+          </li>
+          <li class="about__fact">
+            <span class="about__factTitle">Что делаем</span>
+            <span class="about__factText">Тех/энерго/эко аудит, ОВОС, НДВ, экспертиза, сопровождение проектов</span>
+          </li>
+          <li class="about__fact">
+            <span class="about__factTitle">Результат</span>
+            <span class="about__factText">Снижение затрат, повышение надёжности, соответствие требованиям и нормам</span>
+          </li>
+        </ul>
+
+        <div class="about__actions">
+          <button class="btn btn--dark" data-modal-open="contact">Оставить заявку</button>
+          <a class="btn btn--dark" href="#services">Услуги</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="svc" id="services">
+  <div class="container">
+    <div class="svc__head">
+      <h2 class="svc__title">Наши услуги</h2>
+    </div>
+
+    <div class="svc__grid">
+      <article class="svc-card">
+        <h3 class="svc-card__name">Энергоаудит</h3>
+        <p class="svc-card__text">Обследование, расчёты, перечень мероприятий и оценка эффекта.</p>
+        <button class="btn btn--orange hero__btn" data-modal-open="contact">Запросить консультацию</button>
+      </article>
+
+      <article class="svc-card">
+        <h3 class="svc-card__name">Экологический аудит, ОВОС, НДВ</h3>
+        <p class="svc-card__text">Оценка воздействия, нормативы выбросов и подготовка отчётности.</p>
+        <button class="btn btn--orange hero__btn" data-modal-open="contact">Запросить консультацию</button>
+      </article>
+
+      <article class="svc-card">
+        <h3 class="svc-card__name">Технический аудит объектов</h3>
+        <p class="svc-card__text">Диагностика состояния, выводы и рекомендации по улучшению.</p>
+        <button class="btn btn--orange hero__btn" data-modal-open="contact">Запросить консультацию</button>
+      </article>
+
+      <article class="svc-card">
+        <h3 class="svc-card__name">Проектирование оборудования и технологий</h3>
+        <p class="svc-card__text">Проекты модернизации и внедрение новых технических решений.</p>
+        <button class="btn btn--orange hero__btn" data-modal-open="contact">Запросить консультацию</button>
+      </article>
+
+      <article class="svc-card">
+        <h3 class="svc-card__name">ОКР, ПНР, автоматизация</h3>
+        <p class="svc-card__text">Опытно-конструкторские и пусконаладочные работы, внедрение.</p>
+        <button class="btn btn--orange hero__btn" data-modal-open="contact">Запросить консультацию</button>
+      </article>
+
+      <article class="svc-card">
+        <h3 class="svc-card__name">Инженерные изыскания</h3>
+        <p class="svc-card__text">Полевые и камеральные исследования для подготовки проектов.</p>
+        <button class="btn btn--orange hero__btn" data-modal-open="contact">Запросить консультацию</button>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- CASES -->
+<section class="cases" id="cases">
+  <div class="container">
+    <div class="cases__head">
+      <h2 class="cases__title">Кейсы и направления работ</h2>
+
+    </div>
+
+    <div class="cases__tabs" data-cases-tabs>
+      <button class="tab tab--active" type="button" data-cases-tab="main">Главные направления</button>
+      <button class="tab" type="button" data-cases-tab="expertise">Экспертизы</button>
+      <button class="tab" type="button" data-cases-tab="training">Подготовка специалистов</button>
+      <button class="tab" type="button" data-cases-tab="other">Другие направления</button>
+    </div>
+
+    <div class="cases__panels">
+      <!-- Главные направления -->
+      <div class="cases__panel cases__panel--active" data-cases-panel="main">
+        <div class="cases__grid">
+          <!-- featured -->
+          <a class="case-card case-card--featured" href="{% url 'portfolio:index' %}">
+            <div class="case-card__img">
+              <img src="{% static 'img/case1.jpg' %}" alt="Энергоаудит предприятия">
+            </div>
+            <div class="case-card__body">
+              <div class="case-card__meta">
+                <span class="case-tag">Энергоаудит</span>
+                
+              </div>
+              <h3 class="case-card__title">Комплексный энергоаудит  </h3>
+              <p class="case-card__text">
+                Обследование, расчёты, оценка эффекта и сопровождение внедрения.
+              </p>
+            </div>
+          </a>
+
+          <a class="case-card" href="{% url 'portfolio:index' %}">
+            <div class="case-card__img"><img src="{% static 'img/case2.jpg' %}" alt="Технический аудит объектов"></div>
+            <div class="case-card__body">
+              <div class="case-card__meta">
+                <span class="case-tag">Технический аудит</span>
+              </div>
+              <h3 class="case-card__title">Технический аудит объектов</h3>
+              <p class="case-card__text">Диагностика систем, обследование, выводы и рекомендации.</p>
+            </div>
+          </a>
+
+          <a class="case-card" href="{% url 'portfolio:index' %}">
+            <div class="case-card__img"><img src="{% static 'img/case3.jpg' %}" alt="Проектирование оборудования"></div>
+            <div class="case-card__body">
+              <div class="case-card__meta">
+                <span class="case-tag">Проектирование</span>
+              </div>
+              <h3 class="case-card__title">Проектирование оборудования</h3>
+              <p class="case-card__text">Проекты модернизации и внедрение новых решений.</p>
+            </div>
+          </a>
+
+          <a class="case-card" href="{% url 'portfolio:index' %}">
+            <div class="case-card__img"><img src="{% static 'img/case4.jpg' %}" alt="Программы энергоэффективности"></div>
+            <div class="case-card__body">
+              <div class="case-card__meta">
+                <span class="case-tag">Энергоэффективность</span>
+              </div>
+              <h3 class="case-card__title">Программы энергоэффективности</h3>
+              <p class="case-card__text">План мероприятий, расчёт эффекта, сопровождение внедрения.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Экспертизы -->
+      <div class="cases__panel" data-cases-panel="expertise">
+        <div class="cases__grid">
+          <a class="case-card case-card--featured" href="{% url 'portfolio:index' %}">
+            <div class="case-card__img"><img src="{% static 'img/case5.jpg' %}" alt="Экспертиза промышленной безопасности"></div>
+            <div class="case-card__body">
+              <div class="case-card__meta">
+                <span class="case-tag">Экспертиза</span>
+                <span class="case-tag case-tag--muted">ПБ</span>
+              </div>
+              <h3 class="case-card__title">Экспертиза Пром-безопасности</h3>
+              <p class="case-card__text">Оценка рисков, документация, заключения и рекомендации.</p>
+            </div>
+          </a>
+
+          <a class="case-card" href="{% url 'portfolio:index' %}">
+            <div class="case-card__img"><img src="{% static 'img/case6.jpg' %}" alt="Техническая экспертиза"></div>
+            <div class="case-card__body">
+              <div class="case-card__meta"><span class="case-tag">Техническая экспертиза</span></div>
+              <h3 class="case-card__title">Техническая экспертиза</h3>
+              <p class="case-card__text">Состояние, причины неисправностей и соответствие нормам.</p>
+            </div>
+          </a>
+
+          <a class="case-card" href="{% url 'portfolio:index' %}">
+            <div class="case-card__img"><img src="{% static 'img/case7.jpg' %}" alt="Экспертиза проектов"></div>
+            <div class="case-card__body">
+              <div class="case-card__meta"><span class="case-tag">Экспертиза проектов</span></div>
+              <h3 class="case-card__title">Экспертиза проектов</h3>
+              <p class="case-card__text">Анализ решений, замечания, рекомендации по улучшению.</p>
+            </div>
+          </a>
+
+          <a class="case-card" href="{% url 'portfolio:index' %}">
+            <div class="case-card__img"><img src="{% static 'img/case8.jpg' %}" alt="Экологическая экспертиза"></div>
+            <div class="case-card__body">
+              <div class="case-card__meta"><span class="case-tag">Экологическая экспертиза</span></div>
+              <h3 class="case-card__title">Экологическая экспертиза</h3>
+              <p class="case-card__text">ОВОС/НДВ, сопровождение и отчётность.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Подготовка специалистов -->
+      <div class="cases__panel" data-cases-panel="training">
+        <div class="cases__grid">
+          <a class="case-card case-card--featured" href="{% url 'portfolio:index' %}">
+            <div class="case-card__img"><img src="{% static 'img/case9.jpg' %}" alt="Корпоративное обучение"></div>
+            <div class="case-card__body">
+              <div class="case-card__meta">
+                <span class="case-tag">Обучение</span>
+                <span class="case-tag case-tag--muted">Корпоративное</span>
+              </div>
+              <h3 class="case-card__title">Корпоративное обучение</h3>
+              <p class="case-card__text">Программы под задачи предприятия, практика и контроль знаний.</p>
+            </div>
+          </a>
+
+          <a class="case-card" href="{% url 'portfolio:index' %}">
+            <div class="case-card__img"><img src="{% static 'img/case10.jpg' %}" alt="Подготовка энергоаудиторов"></div>
+            <div class="case-card__body">
+              <div class="case-card__meta"><span class="case-tag">Подготовка</span></div>
+              <h3 class="case-card__title">Подготовка энергоаудиторов</h3>
+              <p class="case-card__text">Методики, инструменты, отчётность, кейсы из практики.</p>
+            </div>
+          </a>
+
+          <a class="case-card" href="{% url 'portfolio:index' %}">
+            <div class="case-card__img"><img src="{% static 'img/case11.jpg' %}" alt="Экологический аудит обучение"></div>
+            <div class="case-card__body">
+              <div class="case-card__meta"><span class="case-tag">Экология</span></div>
+              <h3 class="case-card__title">Экологический аудит: обучение</h3>
+              <p class="case-card__text">Сбор данных, расчёты, типовые ошибки и проверки.</p>
+            </div>
+          </a>
+
+          <a class="case-card" href="{% url 'portfolio:index' %}">
+            <div class="case-card__img"><img src="{% static 'img/case12.jpg' %}" alt="Семинары и воркшопы"></div>
+            <div class="case-card__body">
+              <div class="case-card__meta"><span class="case-tag">Семинары</span></div>
+              <h3 class="case-card__title">Семинары и воркшопы</h3>
+              <p class="case-card__text">Выездные форматы, разбор объектов, рекомендации по внедрению.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Другие направления -->
+      <div class="cases__panel" data-cases-panel="other">
+        <div class="cases__grid">
+          <a class="case-card case-card--featured" href="{% url 'portfolio:index' %}">
+            <div class="case-card__img"><img src="{% static 'img/case13.jpg' %}" alt="ОКР ПНР автоматизация"></div>
+            <div class="case-card__body">
+              <div class="case-card__meta">
+                <span class="case-tag">Автоматизация</span>
+                <span class="case-tag case-tag--muted">ОКР / ПНР</span>
+              </div>
+              <h3 class="case-card__title">ОКР, ПНР и автоматизация</h3>
+              <p class="case-card__text">Внедрение, наладка, регламенты, измерения и контроль.</p>
+            </div>
+          </a>
+
+          <a class="case-card" href="{% url 'portfolio:index' %}">
+            <div class="case-card__img"><img src="{% static 'img/case14.jpg' %}" alt="Модернизация объектов"></div>
+            <div class="case-card__body">
+              <div class="case-card__meta"><span class="case-tag">Модернизация</span></div>
+              <h3 class="case-card__title">Модернизация объектов</h3>
+              <p class="case-card__text">ТЭЦ, котельные, инженерные системы, повышение надёжности.</p>
+            </div>
+          </a>
+
+          <a class="case-card" href="{% url 'portfolio:index' %}">
+            <div class="case-card__img"><img src="{% static 'img/case15.jpg' %}" alt="IT для промышленности"></div>
+            <div class="case-card__body">
+              <div class="case-card__meta"><span class="case-tag">IT</span></div>
+              <h3 class="case-card__title">IT для промышленности</h3>
+              <p class="case-card__text">Мониторинг, отчётность, цифровые панели и интеграции.</p>
+            </div>
+          </a>
+
+          <a class="case-card" href="{% url 'portfolio:index' %}">
+            <div class="case-card__img"><img src="{% static 'img/case16.jpg' %}" alt="Консалтинг и сопровождение"></div>
+            <div class="case-card__body">
+              <div class="case-card__meta"><span class="case-tag">Сопровождение</span></div>
+              <h3 class="case-card__title">Консалтинг и сопровождение</h3>
+              <p class="case-card__text">ТЗ, согласования, документация, проектное сопровождение.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="cases__cta">
+      <button class="btn btn--orange" data-modal-open="contact">Запросить консультацию по вашему объекту</button>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section class="partners" id="partners">
+  <div class="container">
+    <div class="section__head">
+      <h2 class="section__title">Партнёры и заказчики</h2>
+
+    </div>
+  </div>
+
+  <div class="partners__wrap">
+    <button class="slider-btn slider-btn--left" type="button" data-slider-left="partners" aria-label="Назад">‹</button>
+
+    <div class="partners__track" data-slider-track="partners" aria-label="Список партнёров">
+      <div class="partner"><img class="partner__logo" src="{% static 'img/p1.jpg' %}" alt="Партнёр 1"></div>
+      <div class="partner"><img class="partner__logo" src="{% static 'img/p2.jpg' %}" alt="Партнёр 2"></div>
+      <div class="partner"><img class="partner__logo" src="{% static 'img/p3.jpg' %}" alt="Партнёр 3"></div>
+      <div class="partner"><img class="partner__logo" src="{% static 'img/p4.jpg' %}" alt="Партнёр 4"></div>
+      <div class="partner"><img class="partner__logo" src="{% static 'img/p5.jpg' %}" alt="Партнёр 5"></div>
+      <div class="partner"><img class="partner__logo" src="{% static 'img/p6.jpg' %}" alt="Партнёр 6"></div>
+      <div class="partner"><img class="partner__logo" src="{% static 'img/p7.jpg' %}" alt="Партнёр 7"></div>
+      <div class="partner"><img class="partner__logo" src="{% static 'img/p8.jpg' %}" alt="Партнёр 8"></div>
+      <div class="partner"><img class="partner__logo" src="{% static 'img/p9.jpg' %}" alt="Партнёр 9"></div>
+      <div class="partner"><img class="partner__logo" src="{% static 'img/p10.jpg' %}" alt="Партнёр 10"></div>
+    </div>
+
+    <button class="slider-btn slider-btn--right" type="button" data-slider-right="partners" aria-label="Вперёд">›</button>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="steps" id="steps">
+  <div class="container">
+    <div class="steps__head">
+      <h2 class="steps__title">Как проходит работа</h2>
+    </div>
+
+    <div class="steps__grid">
+      <article class="step">
+        <div class="step__top">
+          <div class="step__dot">01</div>
+        </div>
+        <div class="step__card">
+          <h3 class="step__name">Приём заявки</h3>
+          <p class="step__text">Собираем исходные данные, цели и ограничения по объекту.</p>
+        </div>
+      </article>
+
+      <article class="step">
+        <div class="step__top">
+          <div class="step__dot">02</div>
+        </div>
+        <div class="step__card">
+          <h3 class="step__name">Согласование объёма</h3>
+          <p class="step__text">Фиксируем перечень работ, сроки, формат отчётности и доступы.</p>
+        </div>
+      </article>
+
+      <article class="step">
+        <div class="step__top">
+          <div class="step__dot">03</div>
+        </div>
+        <div class="step__card">
+          <h3 class="step__name">Договор и план</h3>
+          <p class="step__text">Подписываем документы и календарный план выполнения.</p>
+        </div>
+      </article>
+
+      <article class="step">
+        <div class="step__top">
+          <div class="step__dot">04</div>
+        </div>
+        <div class="step__card">
+          <h3 class="step__name">Выполнение работ</h3>
+          <p class="step__text">Обследование, измерения, расчёты, контроль качества и согласования.</p>
+        </div>
+      </article>
+
+      <article class="step">
+        <div class="step__top">
+          <div class="step__dot">05</div>
+        </div>
+        <div class="step__card">
+          <h3 class="step__name">Сдача результата</h3>
+          <p class="step__text">Передаём отчёт и рекомендации, при необходимости сопровождаем внедрение.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team" id="team">
+  <div class="container">
+    <div class="team__title">КОМАНДА</div>
+
+    <div class="team__grid">
+      <article class="member">
+        <img class="member__avatar" src="{% static 'img/team1.jpg' %}" alt="Борис Петрович Толкачёв">
+        <div class="member__name">Борис Петрович Толкачёв</div>
+        <div class="member__role">Руководитель направления</div>
+      </article>
+
+      <article class="member">
+        <img class="member__avatar" src="{% static 'img/team2.jpg' %}" alt="Сергей Николаевич Бармин">
+        <div class="member__name">Сергей Николаевич Бармин</div>
+        <div class="member__role">Заместитель руководителя</div>
+      </article>
+
+      <article class="member">
+        <img class="member__avatar" src="{% static 'img/team3.jpg' %}" alt="Олег Булаев">
+        <div class="member__name">Олег Булаев</div>
+        <div class="member__role">Инженер-эксперт</div>
+      </article>
+
+      <article class="member">
+        <img class="member__avatar" src="{% static 'img/team4.jpg' %}" alt="Светлана Алексеевна">
+        <div class="member__name">Светлана Алексеевна</div>
+        <div class="member__role">Главный технолог</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="container faq__grid">
+    <div class="faq__left">
+      <h2 class="faq__title">Вопросы и ответы</h2>
+      <p class="faq__text muted">
+        Если не нашли ответ, оставьте заявку. Мы быстро уточним задачу и предложим следующий шаг.
+      </p>
+      
+    </div>
+
+    <div class="faq__right">
+      <div class="acc">
+        <button class="acc__head" type="button">Какие виды экспертизы вы проводите? <span>+</span></button>
+        <div class="acc__body">
+          Проводим техническую, экологическую и профильные виды экспертизы. Формат и состав работ определяем после первичного обследования/ТЗ.
+        </div>
+      </div>
+
+      <div class="acc">
+        <button class="acc__head" type="button">Вы сопровождаете проекты документально? <span>+</span></button>
+        <div class="acc__body">
+          Да. Готовим заключения, отчётность и пакет документов по требованиям и регламентам, включая согласования при необходимости.
+        </div>
+      </div>
+
+      <div class="acc">
+        <button class="acc__head" type="button">Сколько занимает энергоаудит? <span>+</span></button>
+        <div class="acc__body">
+          Срок зависит от объекта и объёма работ. После первичных данных называем диапазон сроков и фиксируем график.
+        </div>
+      </div>
+
+      <div class="acc">
+        <button class="acc__head" type="button">Какие курсы и тренинги вы предлагаете? <span>+</span></button>
+        <div class="acc__body">
+          Корпоративные программы и обучение специалистов: методики, практика, типовые ошибки, контроль и материалы.
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="btn btn--dark btn-faq" data-modal-open="contact">Задать вопрос</button>
+</section>
+
+
+<!-- NEWS -->
+<section class="news" id="news">
+  <div class="container">
+    <div class="section__head">
+      <h2 class="section__title">Новости</h2>
+      <p class="section__subtitle">
+        <a class="btn btn--dark btn--sm" href="{% url 'news:list' %}">Все новости</a>
+      </p>
+    </div>
+
+    <div class="news__grid">
+      <a class="news-card" href="{% url 'news:list' %}">
+        <div class="news-card__img"><img src="{% static 'img/n1.jpg' %}" alt=""></div>
+        <div class="news-card__body">
+          <div class="news-card__date">20 августа</div>
+          <div class="news-card__title">Энергоаудит помог снизить затраты компании на 20%</div>
+        </div>
+      </a>
+
+      <a class="news-card" href="{% url 'news:list' %}">
+        <div class="news-card__img"><img src="{% static 'img/n2.jpg' %}" alt=""></div>
+        <div class="news-card__body">
+          <div class="news-card__date">29 августа</div>
+          <div class="news-card__title">Запуск курса по IT-безопасности для корпоративных клиентов</div>
+        </div>
+      </a>
+
+      <a class="news-card" href="{% url 'news:list' %}">
+        <div class="news-card__img"><img src="{% static 'img/n3.jpg' %}" alt=""></div>
+        <div class="news-card__body">
+          <div class="news-card__date">15 сентября</div>
+          <div class="news-card__title">Партнёрство для расширения услуг и проектов</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ADDED: DOCUMENTS (ничего не удаляю, просто добавил секцию) -->
+<section class="docs-home" id="docs">
+  <div class="container">
+    <div class="section__head">
+      <h2 class="section__title">Документы и материалы</h2>
+    </div>
+
+    <div class="docs-home__grid">
+      {% if documents %}
+        {% for d in documents %}
+          <a class="doc-mini" href="{% url 'documents:detail' d.slug %}">
+            <div class="doc-mini__meta">
+              {% if d.category %}<span class="doc-mini__tag">{{ d.category.title }}</span>{% endif %}
+              {% if d.is_paid %}<span class="doc-mini__tag doc-mini__tag--paid">Платно</span>{% else %}<span class="doc-mini__tag">Бесплатно</span>{% endif %}
+            </div>
+
+            <div class="doc-mini__title">{{ d.title }}</div>
+
+            <div class="doc-mini__desc">
+              {{ d.description|default:"Описание скоро появится." }}
+            </div>
+
+            <div class="doc-mini__btn">
+              <span class="btn btn--orange btn--sm">Открыть</span>
+            </div>
+          </a>
+        {% endfor %}
+      {% else %}
+        <p class="muted">Документов пока нет.</p>
+      {% endif %}
+    </div>
+
+    <div style="margin-top:18px; text-align:center;">
+      <a class="btn btn--dark" href="{% url 'documents:list' %}">Все документы</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="contact">
+  <div class="container cta__inner">
+    <div class="cta__left">
+      <h2 class="cta__title">Готовы обсудить ваш объект?</h2>
+    </div>
+    <div class="cta__right">
+      <button class="btn btn--orange" data-modal-open="contact">Оставить заявку</button>
+      <a class="btn btn--orange" href="#top">Наверх</a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  // CASES TABS
+  (function () {
+    const tabsWrap = document.querySelector('[data-cases-tabs]');
+    if (!tabsWrap) return;
+
+    const tabs = tabsWrap.querySelectorAll('[data-cases-tab]');
+    const panels = document.querySelectorAll('[data-cases-panel]');
+
+    function activate(key) {
+      tabs.forEach(t => t.classList.toggle('tab--active', t.dataset.casesTab === key));
+      panels.forEach(p => p.classList.toggle('cases__panel--active', p.dataset.casesPanel === key));
+    }
+
+    tabsWrap.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-cases-tab]');
+      if (!btn) return;
+      activate(btn.dataset.casesTab);
+    });
+  })();
+</script>
+
+<script>
+  // FAQ ACCORDION (+ / -)
+  (function () {
+    const items = document.querySelectorAll('.acc');
+    if (!items.length) return;
+
+    items.forEach((acc) => {
+      const head = acc.querySelector('.acc__head');
+      const body = acc.querySelector('.acc__body');
+      const icon = head ? head.querySelector('span') : null;
+
+      if (!head || !body) return;
+
+      head.addEventListener('click', () => {
+        const isOpen = acc.classList.toggle('is-open');
+        if (icon) icon.textContent = isOpen ? '−' : '+';
+      });
+    });
+  })();
+</script>
+
+<script>
+  // CONTACT FORM (fetch + JSON) with CSRF
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("contactForm");
+    if (!form) return;
+
+    function getCookie(name) {
+      const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
+      return match ? decodeURIComponent(match[2]) : null;
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const hint = document.getElementById("contactFormHint");
+      if (hint) hint.textContent = "";
+
+      try {
+        const csrftoken = getCookie("csrftoken");
+
+        const res = await fetch(form.action, {
+          method: "POST",
+          body: new FormData(form),
+          headers: {
+            "X-Requested-With": "XMLHttpRequest",
+            "X-CSRFToken": csrftoken || "",
+          },
+        });
+
+        const contentType = (res.headers.get("content-type") || "").toLowerCase();
+
+        // Если сервер вернул HTML (например, traceback/403 page) — не пытаемся парсить JSON
+        if (!contentType.includes("application/json")) {
+          const text = await res.text();
+          if (hint) hint.textContent = "Сервер вернул не JSON. Проверь traceback в консоли Django.";
+          console.error("Non-JSON response:", res.status, text);
+          return;
+        }
+
+        const data = await res.json();
+
+        if (!res.ok || !data.ok) {
+          if (hint) hint.textContent = (data && data.message) ? data.message : "Ошибка отправки.";
+          return;
+        }
+
+        if (hint) hint.textContent = data.message || "Заявка отправлена.";
+        form.reset();
+
+        const modal = document.getElementById("modal-contact");
+        if (modal) modal.classList.remove("is-open");
+        document.body.style.overflow = "";
+      } catch (err) {
+        if (hint) hint.textContent = "Сеть/сервер: ошибка отправки.";
+        console.error(err);
+      }
+    });
+  });
+</script>
+
+<script>
+  (function () {
+    const accs = document.querySelectorAll(".acc");
+    if (!accs.length) return;
+
+    accs.forEach(acc => {
+      const head = acc.querySelector(".acc__head");
+      const body = acc.querySelector(".acc__body");
+      if (!head || !body) return;
+
+      head.addEventListener("click", () => {
+        const isOpen = acc.classList.toggle("is-open");
+        const icon = head.querySelector("span");
+        if (icon) icon.textContent = isOpen ? "−" : "+";
+      });
+    });
+  })();
+</script>
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Новости | TOO АЭС{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/news.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="news-page">
+  <div class="container">
+    <header class="news-page__head">
+      <h1 class="news-page__title">Новости</h1>
+      <p class="news-page__subtitle muted">
+        Обновления компании, проекты, статьи и полезные материалы.
+      </p>
+    </header>
+
+    {% if categories %}
+      <nav class="news-filters" aria-label="Фильтр категорий">
+        <a class="news-filter {% if not current_category %}is-active{% endif %}"
+           href="{% url 'news:list' %}">
+          Все
+        </a>
+
+        {% for c in categories %}
+          <a class="news-filter {% if current_category and current_category.pk == c.pk %}is-active{% endif %}"
+             href="{% url 'news:category' c.slug %}">
+            {{ c.title }}
+          </a>
+        {% endfor %}
+      </nav>
+    {% endif %}
+
+    {% if posts %}
+      <div class="news-grid">
+        {% for post in posts %}
+          <article class="news-card">
+            <a class="news-card__link" href="{% url 'news:detail' post.slug %}">
+              <div class="news-card__img">
+                {% if post.cover_image %}
+                  <img src="{{ post.cover_image.url }}" alt="{{ post.title }}">
+                {% else %}
+                  <div class="news-card__ph" aria-hidden="true"></div>
+                {% endif %}
+              </div>
+
+              <div class="news-card__body">
+                <div class="news-card__meta">
+                  {% if post.published_at %}
+                    <time class="news-card__date" datetime="{{ post.published_at|date:'c' }}">
+                      {{ post.published_at|date:"d.m.Y" }}
+                    </time>
+                  {% endif %}
+                  {% if post.category %}
+                    <span class="news-card__cat">{{ post.category.title }}</span>
+                  {% endif %}
+                </div>
+
+                <h2 class="news-card__title">{{ post.title }}</h2>
+
+                {% if post.preview_text %}
+                  <p class="news-card__text">{{ post.preview_text }}</p>
+                {% else %}
+                  <p class="news-card__text">{{ post.body|truncatechars:180 }}</p>
+                {% endif %}
+
+                <div class="news-card__more">Читать →</div>
+              </div>
+            </a>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="news-empty">
+        <h2 class="news-empty__title">Пока пусто</h2>
+        <p class="news-empty__text muted">Опубликованных материалов ещё нет.</p>
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

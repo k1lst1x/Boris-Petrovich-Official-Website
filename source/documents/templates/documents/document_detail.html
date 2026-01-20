@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/documents.css' %}">
+{% endblock %}
+
+{% block title %}{{ doc.title }} | Документы{% endblock %}
+
+{% block content %}
+<section class="doc-detail">
+  <div class="container">
+
+    <div class="crumbs">
+      <a class="crumbs__link" href="/">Главная</a>
+      <span class="crumbs__sep">/</span>
+      <a href="{% url 'documents:list' %}" class="crumbs__link">Документы</a>
+
+      {% if doc.category %}
+        <span class="crumbs__sep">/</span>
+        <a href="{% url 'documents:category' doc.category.slug %}" class="crumbs__link">{{ doc.category.title }}</a>
+      {% endif %}
+
+      <span class="crumbs__sep">/</span>
+      <span class="crumbs__current">{{ doc.title }}</span>
+    </div>
+
+    <header class="doc-detail__head">
+      <div class="doc-detail__titles">
+        <h1 class="doc-detail__title">{{ doc.title }}</h1>
+
+        {% if doc.description %}
+          <p class="doc-detail__subtitle">{{ doc.description }}</p>
+        {% else %}
+          <p class="doc-detail__subtitle doc-detail__subtitle--muted">Описание не заполнено.</p>
+        {% endif %}
+      </div>
+
+      <div class="doc-detail__labels">
+        {% if doc.access_type == 'paid' %}
+          <span class="badge badge--paid">Платно</span>
+        {% else %}
+          <span class="badge badge--free">Бесплатно</span>
+        {% endif %}
+
+        {% if not doc.is_open %}
+          <span class="badge badge--closed">Закрыто</span>
+        {% endif %}
+      </div>
+    </header>
+
+    <div class="doc-detail__grid">
+
+      <div class="doc-preview">
+        {% if doc.preview_image %}
+          <img class="doc-preview__img" src="{{ doc.preview_image.url }}" alt="{{ doc.title }}">
+        {% else %}
+          <div class="doc-preview__placeholder">Превью отсутствует</div>
+        {% endif %}
+      </div>
+
+      <aside class="doc-actions">
+        <div class="doc-actions__card">
+
+          <div class="doc-actions__row">
+            <span class="doc-actions__key">Категория</span>
+            <span class="doc-actions__val">{% if doc.category %}{{ doc.category.title }}{% else %}—{% endif %}</span>
+          </div>
+
+          <div class="doc-actions__row">
+            <span class="doc-actions__key">Доступ</span>
+            <span class="doc-actions__val">
+              {% if can_access %}Есть{% else %}Нет{% endif %}
+            </span>
+          </div>
+
+          {% if doc.access_type == 'paid' and doc.price %}
+            <div class="doc-actions__row">
+              <span class="doc-actions__key">Цена</span>
+              <span class="doc-actions__val doc-actions__val--price">{{ doc.price }} {{ doc.currency }}</span>
+            </div>
+          {% endif %}
+
+          <div class="doc-actions__buttons">
+
+            {% if not doc.is_open %}
+              <div class="alert">Документ закрыт администратором.</div>
+
+            {% else %}
+              {% if can_access %}
+                <a class="btn btn--primary" href="{% url 'documents:download' doc.slug %}">Скачать</a>
+                <p class="hint">Скачивание как вложение.</p>
+
+              {% else %}
+                {% if doc.access_type == 'free' %}
+                  <div class="alert">Документ временно недоступен.</div>
+
+                {% else %}
+                  {% if user.is_authenticated %}
+                    <div class="alert">Документ платный. Нужно оплатить.</div>
+                    <a class="btn btn--primary" href="{% url 'documents:pay' doc.slug %}">Оплатить</a>
+                    <p class="hint">Пока заглушка, позже подключим оплату.</p>
+                  {% else %}
+                    <div class="alert">Документ платный. Нужен вход.</div>
+                    <a class="btn btn--primary" href="{% url 'login' %}">Войти</a>
+                    <p class="hint">После входа можно оплатить и скачать.</p>
+                  {% endif %}
+                {% endif %}
+              {% endif %}
+            {% endif %}
+
+            <a class="btn btn--ghost" href="{% url 'documents:list' %}">← Все документы</a>
+          </div>
+
+        </div>
+      </aside>
+
+    </div>
+
+  </div>
+</section>
+{% endblock %}
