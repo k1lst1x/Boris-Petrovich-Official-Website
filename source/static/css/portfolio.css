@@ -576,3 +576,9 @@
   grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
   gap: 16px;
 }
+.pf-page__more.btn{
+  margin-top: 10px;
+  display: inline-flex;
+  width: fit-content;
+  pointer-events: none; /* чтобы клик всегда шел на всю карточку */
+}
