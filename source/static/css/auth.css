@@ -7,7 +7,7 @@
   --auth-radius: var(--radius, 18px);
 }
 
-.auth{
+.auth-section{
   padding: 56px 0 72px;
 }
 
