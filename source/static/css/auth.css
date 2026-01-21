@@ -1,0 +1,120 @@
+:root{
+  --auth-dark: var(--dark, #111827);
+  --auth-muted: var(--muted, #6b7280);
+  --auth-line: var(--line, #e5e7eb);
+  --auth-soft: var(--soft, #f5f6f8);
+  --auth-orange: var(--orange, #f97316);
+  --auth-radius: var(--radius, 18px);
+}
+
+.auth{
+  padding: 56px 0 72px;
+}
+
+.auth__head{
+  margin: 10px auto 18px;
+  max-width: 720px;
+}
+
+.auth__title{
+  margin: 0 0 10px;
+  font-weight: 900;
+  font-size: 48px;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  color: var(--auth-dark);
+}
+
+.auth__subtitle{
+  margin: 0;
+  max-width: 680px;
+  line-height: 1.6;
+}
+
+@media (max-width: 640px){
+  .auth__title{ font-size: 36px; }
+}
+
+.auth-card{
+  max-width: 720px;
+  margin: 0 auto;
+  border-radius: var(--auth-radius);
+  border: 1px solid var(--auth-line);
+  background: #fff;
+  box-shadow: 0 10px 26px rgba(15, 23, 42, .06);
+  padding: 18px;
+}
+
+.auth-form{
+  display: grid;
+  gap: 14px;
+}
+
+/* приведение стандартных django input к стилю сайта */
+.auth-form input[type="text"],
+.auth-form input[type="password"],
+.auth-form input[type="email"]{
+  width: 100%;
+  height: 46px;
+  border-radius: 14px;
+  border: 1px solid var(--auth-line);
+  background: #fff;
+  padding: 0 14px;
+  font-weight: 700;
+  outline: none;
+}
+
+.auth-form input:focus{
+  border-color: rgba(249, 115, 22, .55);
+  box-shadow: 0 0 0 4px rgba(249, 115, 22, .12);
+}
+
+.auth-field{
+  display: grid;
+  gap: 8px;
+}
+
+.auth-label{
+  font-weight: 900;
+  font-size: 13px;
+  color: var(--auth-dark);
+}
+
+.auth-alert{
+  border: 1px solid rgba(239, 68, 68, .25);
+  background: rgba(239, 68, 68, .06);
+  color: #991b1b;
+  border-radius: 14px;
+  padding: 10px 12px;
+  font-weight: 800;
+  font-size: 13px;
+}
+
+.auth-error{
+  color: #b91c1c;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.auth-links{
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding-top: 6px;
+  color: var(--auth-muted);
+  font-size: 13px;
+}
+
+.auth-link{
+  color: var(--auth-muted);
+  text-decoration: none;
+  font-weight: 900;
+}
+
+.auth-link:hover{
+  color: var(--auth-dark);
+}
+
+.auth-sep{
+  opacity: .6;
+}

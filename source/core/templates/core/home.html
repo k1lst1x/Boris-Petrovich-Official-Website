@@ -547,8 +547,7 @@
   <div class="container">
     <div class="section__head">
       <h2 class="section__title">Новости</h2>
-      <p class="section__subtitle">
-      </p>
+      <p class="section__subtitle"></p>
     </div>
 
     <div class="news__grid">
@@ -576,7 +575,12 @@
         </div>
       </a>
     </div>
-    <a class="btn btn--dark btn--sm" href="{% url 'news:list' %}">Все новости</a>
+
+    <!-- КНОПКА ДОЛЖНА БЫТЬ ВНУТРИ container -->
+    <div class="news-actions">
+      <a class="btn btn--outline btn--sm" href="{% url 'news:list' %}">Все новости</a>
+    </div>
+
   </div>
 </section>
 

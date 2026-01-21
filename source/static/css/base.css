@@ -372,3 +372,14 @@ a.footer__contact:hover{ color:#0f172a; }
   box-shadow: 0 0 0 3px rgba(255,255,255,.22);
 }
 
+.auth{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.auth__user{
+  font-weight:900;
+  font-size:14px;
+  color: var(--text, #111827);
+  opacity:.9;
+}

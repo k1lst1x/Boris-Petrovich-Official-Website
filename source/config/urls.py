@@ -4,25 +4,35 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 
+from accounts.forms import StyledAuthenticationForm
+
 urlpatterns = [
     path("admin/", admin.site.urls),
 
     # apps
-    path("", include(("core.urls", "core"), namespace="core")),  # главная
+    path("", include(("core.urls", "core"), namespace="core")),
     path("news/", include(("news.urls", "news"), namespace="news")),
     path("documents/", include(("documents.urls", "documents"), namespace="documents")),
     path("portfolio/", include(("portfolio.urls", "portfolio"), namespace="portfolio")),
     path("contacts/", include(("contacts.urls", "contacts"), namespace="contacts")),
 
-    # auth (reset/смена пароля и т.д.)
+    # стандартные auth страницы Django (password_reset, password_change, etc.)
     path("accounts/", include("django.contrib.auth.urls")),
 
-    # короткие урлы
-    path("login/", auth_views.LoginView.as_view(template_name="registration/login.html"), name="login"),
+    # свой логин/логаут (короткие урлы)
+    path(
+        "login/",
+        auth_views.LoginView.as_view(
+            template_name="registration/login.html",
+            authentication_form=StyledAuthenticationForm,
+            redirect_authenticated_user=True,
+        ),
+        name="login",
+    ),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
 
-    # регистрация (signup)
-    path("", include("accounts.urls")),
+    # signup и прочее из accounts
+    path("accounts/", include(("accounts.urls", "accounts"), namespace="accounts")),
 ]
 
 if settings.DEBUG:

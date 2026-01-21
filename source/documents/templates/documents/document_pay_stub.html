@@ -22,12 +22,16 @@
       </div>
     </header>
 
-    <div class="doc-actions__card" style="max-width:720px;">
-      <p class="muted" style="margin:0 0 12px;">
-        Тут позже будет: создание заказа, платёжный провайдер, вебхук, смена статуса покупки на PAID.
-      </p>
+    <div class="doc-pay">
+      <div class="doc-actions__card doc-pay__card">
+        <p class="muted doc-pay__text">
+          Тут позже будет: создание заказа, платёжный провайдер, вебхук, смена статуса покупки на PAID.
+        </p>
 
-      <a class="btn btn--ghost" href="{% url 'documents:detail' doc.slug %}">Вернуться</a>
+        <div class="doc-pay__actions">
+          <a class="btn btn--ghost" href="{% url 'documents:detail' doc.slug %}">Вернуться</a>
+        </div>
+      </div>
     </div>
 
   </div>

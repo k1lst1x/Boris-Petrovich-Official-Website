@@ -80,7 +80,7 @@
   padding: 11px 16px;
   border-radius: 999px;
   font-weight: 900;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1;
   text-decoration:none;
   border: 1px solid rgba(15,23,42,.14);
@@ -581,4 +581,31 @@
   display: inline-flex;
   width: fit-content;
   pointer-events: none; /* чтобы клик всегда шел на всю карточку */
+}
+
+/* чтобы кнопка опустилась ниже текста */
+.pf-page__text{
+  margin-bottom: 18px; /* увеличь если надо */
+}
+
+/* если кнопка у тебя отдельным блоком */
+.pf-page__actions{
+  margin-top: 10px;
+}
+
+/* карточка кейса: тело как колонка */
+.pf-case__body{
+  display: flex;
+  flex-direction: column;
+}
+
+/* текст даём чуть воздуха */
+.pf-case__text{
+  margin-bottom: 14px;
+}
+
+/* кнопка уезжает вниз и получает отступ сверху */
+.pf-case__actions{
+  margin-top: auto;
+  padding-top: 12px;
 }

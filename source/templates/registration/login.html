@@ -1,39 +1,57 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Вход{% endblock %}
+{% block title %}Вход | TOO АЭС{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock %}
 
 {% block content %}
 <section class="auth">
   <div class="container">
 
+    <div class="auth__head">
+      <h1 class="auth__title">Вход</h1>
+      <p class="auth__subtitle muted">
+        Войдите, чтобы скачивать платные документы после оплаты.
+      </p>
+    </div>
+
     <div class="auth-card">
-      <h1 class="auth-title">Вход</h1>
-      <p class="auth-subtitle muted">Войдите, чтобы скачивать платные документы после оплаты.</p>
-
-      {% if form.errors %}
-        <div class="auth-alert">Неверный логин или пароль.</div>
-      {% endif %}
-
       <form method="post" class="auth-form">
         {% csrf_token %}
 
-        <label class="auth-label">Логин</label>
-        {{ form.username }}
+        {% if form.non_field_errors %}
+          <div class="auth-alert">{{ form.non_field_errors }}</div>
+        {% endif %}
 
-        <label class="auth-label">Пароль</label>
-        {{ form.password }}
+        <div class="auth-field">
+          <label class="auth-label" for="{{ form.username.id_for_label }}">Логин</label>
+          {{ form.username }}
+          {% if form.username.errors %}
+            <div class="auth-error">{{ form.username.errors }}</div>
+          {% endif %}
+        </div>
+
+        <div class="auth-field">
+          <label class="auth-label" for="{{ form.password.id_for_label }}">Пароль</label>
+          {{ form.password }}
+          {% if form.password.errors %}
+            <div class="auth-error">{{ form.password.errors }}</div>
+          {% endif %}
+        </div>
+
+        <input type="hidden" name="next" value="{{ next|default:'/' }}">
 
         <button class="btn btn--orange btn--block" type="submit">Войти</button>
 
-        {% if next %}
-          <input type="hidden" name="next" value="{{ next }}">
-        {% endif %}
+        <div class="auth-links">
+          <a class="auth-link" href="{% url 'password_reset' %}">Забыли пароль?</a>
+          <span class="auth-sep">•</span>
+          <a class="auth-link" href="{% url 'accounts:signup' %}?next={{ request.path }}">Регистрация</a>
+        </div>
       </form>
-
-      <div class="auth-links">
-        <a href="{% url 'password_reset' %}">Забыли пароль?</a>
-      </div>
     </div>
 
   </div>

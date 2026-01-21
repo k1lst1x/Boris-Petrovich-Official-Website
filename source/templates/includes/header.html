@@ -3,16 +3,21 @@
     <a class="logo" href="/" aria-label="На главную">TOO АЭС</a>
 
     <nav class="nav" aria-label="Основная навигация">
-      <a class="nav__link" href="/portfolio/">Портфолио</a>
-      <a class="nav__link" href="/news/">Новости</a>
-      <a class="nav__link" href="/documents/">Документы</a>
-
+      <a class="nav__link" href="{% url 'portfolio:index' %}">Портфолио</a>
+      <a class="nav__link" href="{% url 'news:list' %}">Новости</a>
+      <a class="nav__link" href="{% url 'documents:list' %}">Документы</a>
     </nav>
 
     <div class="auth" aria-label="Аккаунт">
-        <a class="btn btn--orange" href="{% url 'login' %}">Войти</a>
-        <a class="btn btn--orange" href="{% url 'signup' %}">Регистрация</a>
-
+      {% if user.is_authenticated %}
+        <form method="post" action="{% url 'logout' %}" class="auth__form">
+          {% csrf_token %}
+          <button class="btn btn--orange btn--sm" type="submit">Выйти</button>
+        </form>
+      {% else %}
+        <a class="btn btn--orange btn--sm" href="{% url 'login' %}?next={{ request.path }}">Войти</a>
+        <a class="btn btn--orange btn--sm" href="{% url 'accounts:signup' %}?next={{ request.path }}">Регистрация</a>
+      {% endif %}
     </div>
   </div>
 </header>

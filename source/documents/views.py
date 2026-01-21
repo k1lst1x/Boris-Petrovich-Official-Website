@@ -1,13 +1,15 @@
 import mimetypes
 import os
 
-from django.http import FileResponse, Http404, HttpResponseForbidden
-from django.shortcuts import get_object_or_404, render
+from django.http import FileResponse, Http404
+from django.shortcuts import get_object_or_404, render, redirect
+from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
-from .models import Document, DocumentCategory
+from .models import Document, DocumentCategory, DocumentPurchase
 
 
-def _decorate_docs_for_user(docs, user):
+def _decorate_docs_for_user(docs, user, request_path: str = ""):
     """
     Добавляем "виртуальные" поля на объект документа, чтобы шаблон мог
     корректно рисовать: скачать / оплатить / войти / закрыто.
@@ -17,12 +19,18 @@ def _decorate_docs_for_user(docs, user):
     for d in docs:
         d.user_can_access = d.can_user_access(user)
         d.user_needs_login = (d.is_paid and not user_is_auth)
-        # locked_reason удобно для текста/бейджей
+
+        # куда вести "Войти", чтобы вернуться назад
+        if request_path:
+            d.login_url_with_next = f"{reverse('login')}?next={request_path}"
+        else:
+            d.login_url_with_next = reverse("login")
+
         if not d.is_published:
             d.locked_reason = "not_published"
         elif not d.is_open:
             d.locked_reason = "closed"
-        elif d.access_type == d.AccessType.PAID and not d.user_can_access:
+        elif d.is_paid and not d.user_can_access:
             d.locked_reason = "need_pay"
         else:
             d.locked_reason = None
@@ -37,7 +45,7 @@ def document_list(request):
         .select_related("category")
         .order_by("-created_at")
     )
-    docs = _decorate_docs_for_user(docs, request.user)
+    docs = _decorate_docs_for_user(docs, request.user, request.path)
 
     categories = DocumentCategory.objects.filter(is_active=True).order_by("order", "title")
     return render(request, "documents/document_list.html", {
@@ -56,7 +64,7 @@ def document_list_by_category(request, category_slug: str):
         .select_related("category")
         .order_by("-created_at")
     )
-    docs = _decorate_docs_for_user(docs, request.user)
+    docs = _decorate_docs_for_user(docs, request.user, request.path)
 
     categories = DocumentCategory.objects.filter(is_active=True).order_by("order", "title")
     return render(request, "documents/document_list.html", {
@@ -68,48 +76,68 @@ def document_list_by_category(request, category_slug: str):
 
 def document_detail(request, slug: str):
     doc = get_object_or_404(Document, slug=slug, is_published=True)
+
     can_access = doc.can_user_access(request.user)
 
-    # те же удобные флаги, чтобы шаблон не гадал
     doc.user_can_access = can_access
     doc.user_needs_login = (doc.is_paid and not request.user.is_authenticated)
+    login_url_with_next = f"{reverse('login')}?next={request.path}"
 
     return render(request, "documents/document_detail.html", {
         "doc": doc,
         "can_access": can_access,
+        "login_url_with_next": login_url_with_next,
     })
 
 
+@login_required
 def document_pay_stub(request, slug: str):
     """
     Заглушка оплаты: позже сюда подключишь оплату/создание заказа.
-    Пока просто показываем страницу с кнопкой "вернуться".
+    Сейчас делаем хотя бы "покупку" в pending.
     """
     doc = get_object_or_404(Document, slug=slug, is_published=True)
 
+    if not doc.is_open:
+        raise Http404("Документ закрыт.")
+
     # если документ бесплатный, "оплата" не нужна
     if not doc.is_paid:
-        return render(request, "documents/document_pay_stub.html", {
-            "doc": doc,
-            "message": "Этот документ бесплатный. Оплата не требуется.",
-        })
+        return redirect("documents:detail", slug=doc.slug)
 
-    if not request.user.is_authenticated:
-        return HttpResponseForbidden("Нужен вход в аккаунт для оплаты.")
+    purchase, _ = DocumentPurchase.objects.get_or_create(
+        user=request.user,
+        document=doc,
+    )
+
+    # оставляем pending, пока не прикрутили платежку
+    if purchase.status != DocumentPurchase.Status.PAID:
+        purchase.status = DocumentPurchase.Status.PENDING
+        purchase.save(update_fields=["status"])
 
     return render(request, "documents/document_pay_stub.html", {
         "doc": doc,
-        "message": "Здесь будет оплата. Пока заглушка.",
+        "purchase": purchase,
+        "message": "Здесь будет оплата. Пока заглушка (статус: ожидает оплату).",
     })
 
 
 def document_download(request, slug: str):
     doc = get_object_or_404(Document, slug=slug, is_published=True)
 
+    # закрыт = не отдаём никому
+    if not doc.is_open:
+        raise Http404("Документ закрыт.")
+
+    # если платный и не залогинен -> на login с next
+    if doc.is_paid and not request.user.is_authenticated:
+        return redirect(f"{reverse('login')}?next={request.path}")
+
+    # если нет доступа (не купил) -> на оплату
     if not doc.can_user_access(request.user):
-        if doc.is_paid and not request.user.is_authenticated:
-            return HttpResponseForbidden("Нужен вход в аккаунт для доступа.")
-        return HttpResponseForbidden("Доступ запрещён.")
+        if doc.is_paid:
+            return redirect("documents:pay", slug=doc.slug)
+        raise Http404("Доступ запрещён.")
 
     if not doc.file:
         raise Http404("Файл не найден.")
@@ -122,7 +150,7 @@ def document_download(request, slug: str):
     response = FileResponse(
         open(file_path, "rb"),
         content_type=content_type or "application/octet-stream",
+        as_attachment=True,
+        filename=os.path.basename(file_path),
     )
-    filename = os.path.basename(file_path)
-    response["Content-Disposition"] = f'attachment; filename="{filename}"'
     return response

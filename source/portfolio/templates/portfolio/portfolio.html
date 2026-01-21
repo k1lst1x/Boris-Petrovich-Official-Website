@@ -87,7 +87,6 @@
                       <a class="btn btn--outline" href="{% url 'documents:detail' d.slug %}">Открыть</a>
 
                       {% if d.user_can_access %}
-                        <a class="btn btn--orange" href="{% url 'documents:download' d.slug %}">Скачать</a>
                       {% else %}
                         {% if d.access_type == "paid" %}
                           {% if d.user_needs_login %}
@@ -123,19 +122,6 @@
           </div>
         {% endif %}
 
-        {% if attachments %}
-          <div class="case-box">
-            <h3 class="case-box__title">Файлы</h3>
-            <div class="case-files">
-              {% for a in attachments %}
-                <a class="case-file" href="{{ a.file.url }}" target="_blank" rel="noopener">
-                  <span class="case-file__name">{{ a.title }}</span>
-                  <span class="case-file__meta">Скачать →</span>
-                </a>
-              {% endfor %}
-            </div>
-          </div>
-        {% endif %}
       </aside>
 
     </div>
@@ -226,7 +212,6 @@
                   <a class="btn btn--outline" href="{% url 'documents:detail' d.slug %}">Открыть</a>
 
                   {% if d.user_can_access %}
-                    <a class="btn btn--orange" href="{% url 'documents:download' d.slug %}">Скачать</a>
                   {% else %}
                     {% if d.access_type == 'paid' %}
                       {% if d.user_needs_login %}

@@ -1,5 +1,11 @@
+/* =========================
+   Documents (List/Detail/Pay)
+   NEW CLEAN VERSION
+========================= */
+
 /* ---- Base ---- */
-.docs-page, .doc-detail{
+.docs-page,
+.doc-detail{
   padding: 56px 0 70px;
 }
 
@@ -58,13 +64,18 @@
   background: var(--soft, #f5f6f8);
 }
 
-/* ---- Grid ---- */
+/* =========================
+   Grid: 4 in a row (desktop)
+========================= */
 .docs-grid{
   display:grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr)); /* <-- ВОТ ТУТ 4 */
   gap: 22px;
 }
 
+@media (max-width: 1200px){
+  .docs-grid{ grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
 @media (max-width: 1024px){
   .docs-grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .docs-page__title{ font-size: 44px; }
@@ -74,7 +85,9 @@
   .docs-page__title{ font-size: 36px; }
 }
 
-/* ---- Card ---- */
+/* =========================
+   Card
+========================= */
 .doc-card{
   position: relative;
   border-radius: 18px;
@@ -88,13 +101,6 @@
 .doc-card:hover{
   transform: translateY(-3px);
   box-shadow: 0 16px 34px rgba(15, 23, 42, .10);
-}
-
-.doc-card__link{
-  position:absolute;
-  inset:0;
-  z-index: 2;
-  text-indent: -9999px;
 }
 
 .doc-card__media{
@@ -129,7 +135,7 @@
   top: 14px;
   display:flex;
   gap: 8px;
-  z-index: 3;
+  z-index: 2;
 }
 
 /* ---- Badges ---- */
@@ -146,15 +152,9 @@
   background: rgba(0,0,0,.35);
   color:#fff;
 }
-.badge--free{
-  background: rgba(16, 185, 129, .28);
-}
-.badge--paid{
-  background: rgba(249, 115, 22, .30);
-}
-.badge--closed{
-  background: rgba(239, 68, 68, .28);
-}
+.badge--free{ background: rgba(16, 185, 129, .28); }
+.badge--paid{ background: rgba(249, 115, 22, .30); }
+.badge--closed{ background: rgba(239, 68, 68, .28); }
 
 /* ---- Card body ---- */
 .doc-card__body{
@@ -176,10 +176,6 @@
   min-height: 44px;
 }
 
-.doc-card__text--muted{
-  opacity:.8;
-}
-
 .doc-card__meta{
   display:flex;
   align-items:center;
@@ -189,14 +185,10 @@
 }
 
 .doc-card__cat{
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 800;
   color: var(--text, #111827);
   opacity: .85;
-}
-
-.doc-card__cat--muted{
-  opacity: .6;
 }
 
 .doc-card__price{
@@ -205,20 +197,47 @@
   color: var(--text, #111827);
 }
 
-.doc-card__cta{
-  display:flex;
+/* =========================
+   Buttons (single source of truth)
+========================= */
+.btn{
+  display:inline-flex;
   align-items:center;
-  justify-content:flex-start;
-}
-
-.doc-card__btn{
+  justify-content:center;
+  border-radius: 14px;
+  padding: 12px 14px;
   font-weight: 900;
-  color: var(--orange, #f97316);
-  letter-spacing: .01em;
+  text-decoration:none;
+  border: 1px solid transparent;
+  cursor:pointer;
+  user-select:none;
+  white-space: nowrap;
 }
 
-.doc-card__btn .arrow{
-  margin-left: 6px;
+.btn--primary{
+  background: var(--orange, #f97316);
+  color:#fff;
+  border-color: rgba(0,0,0,.06);
+}
+.btn--primary:hover{ filter: brightness(.97); }
+
+.btn--ghost{
+  background:#fff;
+  color: var(--text, #111827);
+  border-color: var(--line, #e5e7eb);
+}
+.btn--ghost:hover{ border-color: rgba(0,0,0,.18); }
+
+/* ===== doc-card actions (spacing + full width) ===== */
+.doc-card__actions{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;              /* <-- Разделяет кнопки */
+  margin-top: 12px;
+}
+
+.doc-card__actions .btn{
+  width: 100%;
 }
 
 /* ---- Empty ---- */
@@ -341,60 +360,26 @@
   padding: 10px 0;
   border-bottom: 1px solid var(--line, #e5e7eb);
 }
-.doc-actions__row:last-of-type{
-  border-bottom: none;
-}
+.doc-actions__row:last-of-type{ border-bottom: none; }
 
 .doc-actions__key{
   color: var(--muted, #6b7280);
   font-weight: 800;
-  font-size: 13px;
+  font-size: 16px;
 }
 .doc-actions__val{
   color: var(--text, #111827);
   font-weight: 900;
-  font-size: 13px;
+  font-size: 16px;
   text-align:right;
 }
-.doc-actions__val--price{
-  color: var(--orange, #f97316);
-}
+.doc-actions__val--price{ color: var(--orange, #f97316); }
 
 .doc-actions__buttons{
-  padding-top: 14px;
+  margin-top: 12px;
   display:flex;
   flex-direction: column;
-  gap: 10px;
-}
-
-.btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  border-radius: 14px;
-  padding: 12px 14px;
-  font-weight: 900;
-  text-decoration:none;
-  border: 1px solid transparent;
-  cursor:pointer;
-}
-
-.btn--primary{
-  background: var(--orange, #f97316);
-  color:#fff;
-  border-color: rgba(0,0,0,.06);
-}
-.btn--primary:hover{
-  filter: brightness(.97);
-}
-
-.btn--ghost{
-  background:#fff;
-  color: var(--text, #111827);
-  border-color: var(--line, #e5e7eb);
-}
-.btn--ghost:hover{
-  border-color: rgba(0,0,0,.18);
+  gap: 10px;              /* <-- Разделяет кнопки в сайдбаре */
 }
 
 .hint{
@@ -411,5 +396,23 @@
   padding: 12px;
   color: var(--text, #111827);
   font-weight: 800;
-  font-size: 13px;
+  font-size: 16px;
+}
+
+/* =========================
+   Pay page helpers
+========================= */
+.doc-pay{
+  display:flex;
+  justify-content:center;
+}
+.doc-pay__card{
+  width:100%;
+  max-width:720px;
+}
+.doc-pay__actions{
+  display:flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
 }

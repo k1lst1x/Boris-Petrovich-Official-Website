@@ -72,13 +72,13 @@
 
               {% if d.is_open %}
                 {% if d.user_can_access %}
-                  <a class="btn btn--primary" href="{% url 'documents:download' d.slug %}">Скачать</a>
+                  <a class="btn btn--ghost" href="{% url 'documents:download' d.slug %}">Скачать</a>
                 {% else %}
                   {% if d.access_type == 'paid' %}
                     {% if d.user_needs_login %}
-                      <a class="btn btn--primary" href="{% url 'login' %}">Войти</a>
+                      <a class="btn btn--ghost" href="{% url 'login' %}?next={% url 'documents:detail' d.slug %}">Войти</a>
                     {% else %}
-                      <a class="btn btn--primary" href="{% url 'documents:pay' d.slug %}">Оплатить</a>
+                      <a class="btn btn--ghost" href="{% url 'documents:pay' d.slug %}">Оплатить</a>
                     {% endif %}
                   {% endif %}
                 {% endif %}

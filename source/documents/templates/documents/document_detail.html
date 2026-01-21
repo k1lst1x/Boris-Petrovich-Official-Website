@@ -28,7 +28,6 @@
     <header class="doc-detail__head">
       <div class="doc-detail__titles">
         <h1 class="doc-detail__title">{{ doc.title }}</h1>
-
         {% if doc.description %}
           <p class="doc-detail__subtitle">{{ doc.description }}</p>
         {% else %}
@@ -69,9 +68,7 @@
 
           <div class="doc-actions__row">
             <span class="doc-actions__key">Доступ</span>
-            <span class="doc-actions__val">
-              {% if can_access %}Есть{% else %}Нет{% endif %}
-            </span>
+            <span class="doc-actions__val">{% if can_access %}Есть{% else %}Нет{% endif %}</span>
           </div>
 
           {% if doc.access_type == 'paid' and doc.price %}
@@ -88,23 +85,21 @@
 
             {% else %}
               {% if can_access %}
-                <a class="btn btn--primary" href="{% url 'documents:download' doc.slug %}">Скачать</a>
+                <a class="btn btn--ghost" href="{% url 'documents:download' doc.slug %}">Скачать</a>
                 <p class="hint">Скачивание как вложение.</p>
 
               {% else %}
-                {% if doc.access_type == 'free' %}
-                  <div class="alert">Документ временно недоступен.</div>
-
-                {% else %}
+                {% if doc.access_type == 'paid' %}
                   {% if user.is_authenticated %}
                     <div class="alert">Документ платный. Нужно оплатить.</div>
-                    <a class="btn btn--primary" href="{% url 'documents:pay' doc.slug %}">Оплатить</a>
-                    <p class="hint">Пока заглушка, позже подключим оплату.</p>
+                    <a class="btn btn--ghost" href="{% url 'documents:pay' doc.slug %}">Оплатить</a>
                   {% else %}
                     <div class="alert">Документ платный. Нужен вход.</div>
-                    <a class="btn btn--primary" href="{% url 'login' %}">Войти</a>
+                    <a class="btn btn--ghost" href="{% url 'login' %}?next={% url 'documents:detail' doc.slug %}">Войти</a>
                     <p class="hint">После входа можно оплатить и скачать.</p>
                   {% endif %}
+                {% else %}
+                  <div class="alert">Документ временно недоступен.</div>
                 {% endif %}
               {% endif %}
             {% endif %}

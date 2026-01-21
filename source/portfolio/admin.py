@@ -5,7 +5,6 @@ from .models import (
     PortfolioPage,
     Case,
     CaseImage,
-    CaseAttachment,
     CaseDocument,
 )
 
@@ -27,16 +26,9 @@ class CaseImageInline(admin.TabularInline):
         )
 
 
-class CaseAttachmentInline(admin.TabularInline):
-    model = CaseAttachment
-    extra = 0
-    fields = ("title", "file", "order", "is_active")
-    ordering = ("order", "id")
-
-
 class CaseDocumentInline(admin.TabularInline):
     """
-    Привязка документов к кейсу.
+    Привязка документов к кейсу (только из documents).
     """
     model = CaseDocument
     extra = 0
@@ -69,7 +61,8 @@ class CaseAdmin(admin.ModelAdmin):
 
     filter_horizontal = ("pages",)
 
-    inlines = (CaseImageInline, CaseAttachmentInline, CaseDocumentInline)
+    # ✅ ОСТАВЛЯЕМ: галерею + документы. ❌ УБРАЛИ: файлы кейса (attachments)
+    inlines = (CaseImageInline, CaseDocumentInline)
 
     fieldsets = (
         ("Основное", {
@@ -107,9 +100,6 @@ class CaseAdmin(admin.ModelAdmin):
 
 @admin.register(CaseDocument)
 class CaseDocumentAdmin(admin.ModelAdmin):
-    """
-    Не обязательно, но удобно: видеть все связи кейс-документ в одном месте.
-    """
     list_display = ("case", "document", "order", "is_active")
     list_filter = ("is_active",)
     search_fields = ("case__title", "case__slug", "document__title", "document__slug")

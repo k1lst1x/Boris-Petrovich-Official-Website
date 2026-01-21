@@ -1228,3 +1228,8 @@ section {
   margin:0 !important;
 }
 
+.news-actions{
+  display: flex;
+  justify-content: center;
+  margin-top: 18px;
+}
