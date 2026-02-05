@@ -624,6 +624,7 @@
 </section>
 
 <!-- RECOMMENDATIONS -->
+<!-- RECOMMENDATIONS -->
 <section class="recs-home" id="recommendations">
   <div class="container">
     <div class="section__head">
@@ -631,13 +632,14 @@
       <p class="section__subtitle">Сертификаты, благодарственные письма и рекомендации</p>
     </div>
 
-    <div class="recs-home__grid">
+    <div class="recommend-grid">
       {% if recommendations %}
         {% for r in recommendations %}
-          <a class="rec-card" href="{{ r.document.url }}" target="_blank">
-            <div class="rec-card__icon">📄</div>
-            <div class="rec-card__title">{{ r.title }}</div>
-            <div class="rec-card__date">{{ r.created_at|date:"d.m.Y" }}</div>
+          <a class="rec-doc" href="{{ r.document.url }}" target="_blank" rel="noopener">
+            <div class="rec-preview" data-pdf="{{ r.document.url }}">
+              <canvas aria-hidden="true"></canvas>
+            </div>
+            <div class="rec-caption">{{ r.title }}</div>
           </a>
         {% endfor %}
       {% else %}
@@ -789,5 +791,47 @@
       });
     });
   })();
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  if (!window["pdfjsLib"]) return;
+
+  pdfjsLib.GlobalWorkerOptions.workerSrc =
+    "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+
+  const previews = document.querySelectorAll(".rec-preview");
+
+  previews.forEach(async (box) => {
+    const url = box.dataset.pdf;
+    const canvas = box.querySelector("canvas");
+    if (!url || !canvas) return;
+
+    try {
+      const pdf = await pdfjsLib.getDocument(url).promise;
+      const page = await pdf.getPage(1);
+
+      const viewport = page.getViewport({ scale: 1 });
+
+      const containerWidth = box.clientWidth - 28;
+      const scale = containerWidth / viewport.width;
+
+      const scaledViewport = page.getViewport({ scale });
+
+      canvas.width = scaledViewport.width;
+      canvas.height = scaledViewport.height;
+
+      const ctx = canvas.getContext("2d");
+
+      await page.render({
+        canvasContext: ctx,
+        viewport: scaledViewport
+      }).promise;
+
+    } catch (err) {
+      console.warn("PDF preview error:", url, err);
+    }
+  });
+});
 </script>
 {% endblock %}
