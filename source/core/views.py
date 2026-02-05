@@ -2,6 +2,7 @@ from django.shortcuts import render
 
 from news.models import NewsPost
 from documents.models import Document
+from .models import Recommendation
 
 
 def home(request):
@@ -18,7 +19,22 @@ def home(request):
         .order_by("-created_at")[:3]
     )
 
+    recommendations = (
+        Recommendation.objects
+        .all()
+        .order_by("order", "-created_at")[:6]
+    )
+
     return render(request, "core/home.html", {
         "news_posts": news_posts,
         "documents": documents,
+        "recommendations": recommendations,
+    })
+
+
+def recommendations_list(request):
+    recommendations = Recommendation.objects.all().order_by("order", "-created_at")
+
+    return render(request, "core/recommendations_list.html", {
+        "recommendations": recommendations
     })

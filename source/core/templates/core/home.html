@@ -623,6 +623,36 @@
   </div>
 </section>
 
+<!-- RECOMMENDATIONS -->
+<section class="recs-home" id="recommendations">
+  <div class="container">
+    <div class="section__head">
+      <h2 class="section__title">Нас рекомендуют</h2>
+      <p class="section__subtitle">Сертификаты, благодарственные письма и рекомендации</p>
+    </div>
+
+    <div class="recs-home__grid">
+      {% if recommendations %}
+        {% for r in recommendations %}
+          <a class="rec-card" href="{{ r.document.url }}" target="_blank">
+            <div class="rec-card__icon">📄</div>
+            <div class="rec-card__title">{{ r.title }}</div>
+            <div class="rec-card__date">{{ r.created_at|date:"d.m.Y" }}</div>
+          </a>
+        {% endfor %}
+      {% else %}
+        <p class="muted">Рекомендаций пока нет.</p>
+      {% endif %}
+    </div>
+
+    <div style="margin-top:18px; text-align:center;">
+      <a class="btn btn--dark" href="{% url 'core:recommendations_list' %}">
+        Полный список рекомендаций
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- CTA -->
 <section class="cta" id="contact">
   <div class="container cta__inner">

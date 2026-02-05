@@ -1,9 +1,9 @@
 from django.urls import path
-from core.views import home
 from . import views
 
 app_name = "core"
 
 urlpatterns = [
     path("", views.home, name="home"),
+    path("recommendations/", views.recommendations_list, name="recommendations_list"),
 ]
