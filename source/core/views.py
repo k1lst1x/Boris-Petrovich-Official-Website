@@ -22,7 +22,7 @@ def home(request):
     recommendations = (
         Recommendation.objects
         .all()
-        .order_by("order", "-created_at")[:6]
+        .order_by("order", "-created_at")[:4]
     )
 
     return render(request, "core/home.html", {
