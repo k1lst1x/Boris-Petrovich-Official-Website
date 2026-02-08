@@ -15,13 +15,19 @@ SECRET_KEY = "django-insecure-7(fmu*1z_^ksx&%i2kng@it$+8cf$$pi%^mkef%j-b&thqb+js
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["195.210.47.26"]
+ALLOWED_HOSTS = [
+    "world-aes.com",
+    "www.world-aes.com",
+    "195.210.47.26",
+]
 
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 CSRF_TRUSTED_ORIGINS = [
-    "http://195.210.47.26",
-    "https://195.210.47.26",
+    "http://world-aes.com",
+    "https://world-aes.com",
+    "http://www.world-aes.com",
+    "https://www.world-aes.com",
 ]
 
 SESSION_COOKIE_SECURE = False
